@@ -1,14 +1,14 @@
 import  React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { getDocs, collection } from "firebase/firestore"; 
-import {db} from './firebase_setup/firebase'
+import {db} from './firebase_setup/firebase';
 
 interface IProps {
 }
 
 interface IState {
     albums: IAlbum[];
+    filteredAlbums: IAlbum[];
 }
 
 interface IAlbum {
@@ -26,7 +26,9 @@ class App extends React.Component<IProps, IState> {
         
         this.state = {
             albums: [],
+            filteredAlbums: [],
         }
+        
     }
 
     componentDidMount(): void {
@@ -37,20 +39,45 @@ class App extends React.Component<IProps, IState> {
     }
 
     getAlbums = async () => {
-        const doc_refs = await getDocs(collection(db, 'albums')).then((result)=>{               
+        getDocs(collection(db, 'albums'))
+        .then((result)=> {       
             const albums = result.docs.map((doc) => ({...doc.data(), id:doc.id })) as IAlbum[];              
-    
             this.setState({
-                albums: albums
+                albums: albums,
+                filteredAlbums: albums,
             });
         })
     }
     
+    searchInputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const searchValue = event.target.value;
+
+        if(searchValue !== '') {
+            const result = this.state.albums.filter((album) => {
+                if(album.title.toLowerCase().includes(searchValue.toLocaleLowerCase()) || album.artist.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+
+            this.setState({
+                filteredAlbums: result
+            });
+        }
+        else {
+            this.setState({
+                filteredAlbums: this.state.albums
+            });
+        }
+    }
 
     render () {  
         return (
             <div className="App">
-                {this.state.albums.map((album, index) => {
+                <input className='search-box' type='search' placeholder='Search albums' onChange={(event) => this.searchInputOnChange(event)}/>
+                {this.state.filteredAlbums.map((album, index) => {
                     return (
                         <h1 key={index}>{album.title}</h1>
                     );
