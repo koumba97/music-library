@@ -1,7 +1,16 @@
 import React from "react";
+import { IAlbum } from "../../App";
+
+
+type Item = any;
+
+ interface IItem extends Item {
+    id : string | number;
+    title: string;
+ }
 
 interface IProps {
-    list: any[];
+    list: IItem[];
 }
 
 interface IState {

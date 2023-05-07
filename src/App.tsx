@@ -2,7 +2,8 @@ import  React from 'react';
 import './App.css';
 import { getDocs, collection } from "firebase/firestore"; 
 import {db} from './firebase_setup/firebase';
-import CardList from './components/CardList/CardList.component';
+import CardList from './components/CardList/CardList';
+import SeachBar from './components/SearchBar/SearchBar';
 
 interface IProps {
 }
@@ -12,7 +13,7 @@ interface IState {
     searchString: string;
 }
 
-interface IAlbum {
+export interface IAlbum {
     artist: string;
     title: string;
     id: string;
@@ -61,8 +62,13 @@ class App extends React.Component<IProps, IState> {
 
         return (
             <div className="App">
-                <input className='search-box' type='search' placeholder='Search albums' onChange={(event) => searchInputOnChange(event)}/>
-                <CardList list={filteredAlbums}/>
+                <SeachBar 
+                    placeholder={ 'Search album' } 
+                    onChangeHandler={ searchInputOnChange }
+                />
+                <CardList 
+                    list={filteredAlbums}
+                />
             </div>
         )
     }
