@@ -2,6 +2,7 @@ import  React from 'react';
 import './App.css';
 import { getDocs, collection } from "firebase/firestore"; 
 import {db} from './firebase_setup/firebase';
+import CardList from './components/CardList/CardList.component';
 
 interface IProps {
 }
@@ -61,11 +62,7 @@ class App extends React.Component<IProps, IState> {
         return (
             <div className="App">
                 <input className='search-box' type='search' placeholder='Search albums' onChange={(event) => searchInputOnChange(event)}/>
-                {filteredAlbums.map((album, index) => {
-                    return (
-                        <h1 key={index}>{album.title}</h1>
-                    );
-                })}
+                <CardList list={filteredAlbums}/>
             </div>
         )
     }
