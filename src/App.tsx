@@ -8,7 +8,7 @@ interface IProps {
 
 interface IState {
     albums: IAlbum[];
-    filteredAlbums: IAlbum[];
+    searchString: string;
 }
 
 interface IAlbum {
@@ -26,16 +26,12 @@ class App extends React.Component<IProps, IState> {
         
         this.state = {
             albums: [],
-            filteredAlbums: [],
+            searchString: '',
         }
-        
     }
 
     componentDidMount(): void {
         this.getAlbums();
-    }
-    submithandler(e: any) {
-      e.preventDefault()
     }
 
     getAlbums = async () => {
@@ -44,40 +40,28 @@ class App extends React.Component<IProps, IState> {
             const albums = result.docs.map((doc) => ({...doc.data(), id:doc.id })) as IAlbum[];              
             this.setState({
                 albums: albums,
-                filteredAlbums: albums,
             });
         })
     }
     
     searchInputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const searchValue = event.target.value;
-
-        if(searchValue !== '') {
-            const result = this.state.albums.filter((album) => {
-                if(album.title.toLowerCase().includes(searchValue.toLocaleLowerCase()) || album.artist.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
-
-            this.setState({
-                filteredAlbums: result
-            });
-        }
-        else {
-            this.setState({
-                filteredAlbums: this.state.albums
-            });
-        }
+        this.setState({
+            searchString: event.target.value.toLocaleLowerCase()
+        });
     }
 
     render () {  
+        const { albums, searchString } = this.state;
+        const { searchInputOnChange } = this;
+
+        const filteredAlbums = albums.filter((album) => {
+            return album.title.toLowerCase().includes(searchString) || album.artist.toLocaleLowerCase().includes(searchString);
+        });
+
         return (
             <div className="App">
-                <input className='search-box' type='search' placeholder='Search albums' onChange={(event) => this.searchInputOnChange(event)}/>
-                {this.state.filteredAlbums.map((album, index) => {
+                <input className='search-box' type='search' placeholder='Search albums' onChange={(event) => searchInputOnChange(event)}/>
+                {filteredAlbums.map((album, index) => {
                     return (
                         <h1 key={index}>{album.title}</h1>
                     );
