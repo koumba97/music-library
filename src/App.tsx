@@ -1,6 +1,7 @@
 import  React from 'react';
-import './style/App.scss';
+import './App.scss';
 import { getDocs, collection } from "firebase/firestore"; 
+import logo from './assets/images/music-library-logo.png';
 import {db} from './firebase_setup/firebase';
 import CardList from './components/CardList/CardList';
 import SeachBar from './components/SearchBar/SearchBar';
@@ -63,14 +64,18 @@ class App extends React.Component<IProps, IState> {
         return (
             <div className="app">
                 <div className='app-content'>
-                        <h1 className='title'>Music library</h1>
-                <SeachBar 
-                    placeholder={ 'Search album' } 
-                    onChangeHandler={ searchInputOnChange }
-                />
-                <CardList 
-                    list={filteredAlbums}
-                /> 
+                    <div className='title'>
+                        <img src={logo} className='logo' alt="Logo"/>
+                        <p className='slogan'>Explore your passion for music with music library</p>
+                    </div>
+
+                    <SeachBar 
+                        placeholder={ 'Search album' } 
+                        onChangeHandler={ searchInputOnChange }
+                    />
+                    <CardList 
+                        list={filteredAlbums}
+                    /> 
                 </div>
            
             </div>
