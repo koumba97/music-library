@@ -1,5 +1,5 @@
 import  React from 'react';
-import './App.css';
+import './App.scss';
 import { getDocs, collection } from "firebase/firestore"; 
 import {db} from './firebase_setup/firebase';
 import CardList from './components/CardList/CardList';
@@ -62,6 +62,7 @@ class App extends React.Component<IProps, IState> {
 
         return (
             <div className="App">
+                <h1>Album library</h1>
                 <SeachBar 
                     placeholder={ 'Search album' } 
                     onChangeHandler={ searchInputOnChange }
