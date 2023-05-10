@@ -1,0 +1,12 @@
+.album-card {
+    width: 200px;
+    height: 250px;
+    border: solid;
+
+    img {
+        width: 100%;
+        height: 180px;
+        object-fit: contain;
+        object-position: center;
+    }
+}

@@ -1,4 +1,6 @@
 import React from "react";
+import './CardList.scss';
+import AlbumCard from "../AlbumCard/AlbumCard";
 import { IAlbum } from "../../App";
 
 
@@ -11,6 +13,7 @@ type Item = any;
 
 interface IProps {
     list: IItem[];
+    listType: string;
 }
 
 interface IState {
@@ -23,12 +26,15 @@ export default class CardList extends React.Component<IProps, IState> {
     }
 
     render() {
-        if(this.props.list)
+        const { props } = this;
+
+        if(props.list)
         return (
             <div className="card-list">
-                {this.props.list.map(item => {
+                {props.list.map(item => {
+                    if(props.listType === 'album')
                     return (
-                        <h1 key={item.id}>{item.title}</h1>
+                        <AlbumCard key={item.id} album={item as IAlbum}></AlbumCard>
                     )
                 })}
             </div>

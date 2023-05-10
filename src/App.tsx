@@ -75,6 +75,7 @@ class App extends React.Component<IProps, IState> {
                     />
                     <CardList 
                         list={filteredAlbums}
+                        listType='album'
                     /> 
                 </div>
            
