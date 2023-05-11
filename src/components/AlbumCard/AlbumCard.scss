@@ -7,6 +7,7 @@
     padding: 16px;
     background-color: white;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.197);
+    cursor: default;
     img {
         width: 195px;
         height: 195px;
@@ -23,6 +24,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 200px;
+        width: max-content;
     }
 
     .album-artist {
