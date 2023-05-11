@@ -2,15 +2,15 @@ import React from "react";
 import { IAlbum } from "../../App";
 import './AlbumCard.scss';
 
-interface IProp {
+interface IProps {
     album: IAlbum,
 }
 
 interface IState {
 
 }
-export default class AlbumCard extends React.Component<IProp, IState> {
-    constructor(props: IProp) {
+export default class AlbumCard extends React.Component<IProps, IState> {
+    constructor(props: IProps) {
         super(props);
     }
 
@@ -20,7 +20,9 @@ export default class AlbumCard extends React.Component<IProp, IState> {
         return (
             <div className="album-card">
                 <img alt={`album ${props.album.image}`} src={props.album.image}></img>
-                <h1 key={props.album.id}>{props.album.title}</h1>
+                <h1 className="album-title">{props.album.title}</h1>
+                <p className="album-artist">{props.album.artist}</p>
+                <p className="album-year">{props.album.year}</p>
             </div>
         )
     }
