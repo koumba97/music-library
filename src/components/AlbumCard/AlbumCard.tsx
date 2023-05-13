@@ -26,7 +26,6 @@ export default class AlbumCard extends React.Component<IProps, IState> {
                 
                 <TitleRendering title={props.album.title}/>
                
-
                 <p className="album-artist">{props.album.artist}</p>
                 <p className="album-year">{props.album.year}</p>
             </div>
@@ -34,7 +33,7 @@ export default class AlbumCard extends React.Component<IProps, IState> {
     }
 }
 
-function TitleRendering(props: {title:string}) {
+const TitleRendering = (props: {title:string}) =>{
     if(props.title.length > 20){
         return(
             <div className="tooltip">

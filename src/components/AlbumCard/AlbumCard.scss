@@ -8,6 +8,10 @@
     background-color: white;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.197);
     cursor: default;
+    position: relative;
+    bottom: 0;
+    transition-duration: .3s;
+
     img {
         width: 195px;
         height: 195px;
@@ -40,5 +44,9 @@
         text-align: right;
         color: $primary;
         width: 100%;
+    }
+
+    &:hover {
+        bottom: 10px;
     }
 }
