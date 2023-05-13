@@ -18,16 +18,16 @@ export default class AlbumCard extends React.Component<IProps, IState> {
     }
 
     render () {
-        const {props} = this;
+        const {image, title, artist, year} = this.props.album;
 
         return (
             <div className="album-card">
-                <img alt={`album ${props.album.image}`} src={props.album.image}></img>
+                <img alt={`album ${title}`} src={image}></img>
                 
-                <TitleRendering title={props.album.title}/>
+                <TitleRendering title={title}/>
                
-                <p className="album-artist">{props.album.artist}</p>
-                <p className="album-year">{props.album.year}</p>
+                <p className="album-artist">{artist}</p>
+                <p className="album-year">{year}</p>
             </div>
         )
     }
