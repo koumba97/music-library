@@ -18,7 +18,7 @@ export interface IAlbum {
 const App = () => {
     const [searchString, setSearchString] = useState<string>('');
     const [albums, setAlbums] = useState<IAlbum[]>([]);
-
+    
     useEffect(() => {
         getAlbums();
     }, []);

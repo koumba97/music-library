@@ -13,8 +13,17 @@
     }
 }
 
-@media (min-width: 1px) and (max-width: 900px) {
+@media (min-width: 735px) and (max-width: 900px) {
     .card-list {
         grid-template-columns: 1fr 1fr;
+        width: max-content;
+    }
+}
+
+@media (min-width: 1px) and (max-width: 735px) {
+    .card-list {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        width: max-content;
     }
 }
