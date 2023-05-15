@@ -8,19 +8,19 @@ interface IProps {
     onChangeHandler: React.ChangeEventHandler<HTMLInputElement>
 }
 
-export default class SeachBar extends React.Component<IProps> {
-    render () {
-        const { placeholder, onChangeHandler } = this.props;
-        return (
-            <div className='search-bar' >
-                <FontAwesomeIcon icon={faSearch} className="search-icon" size="xl"/>
-                <input 
-                    type='search' 
-                    placeholder={ placeholder } 
-                    onChange={ onChangeHandler }
-                />
-                <button type='submit'>Search</button>
-            </div>
-        )
-    }
+const SearchBar = (props: IProps) => {
+    const { placeholder, onChangeHandler } = props;
+    return (
+        <div className='search-bar' >
+        <FontAwesomeIcon icon={faSearch} className="search-icon" size="xl"/>
+        <input 
+            type='search' 
+            placeholder={ placeholder } 
+            onChange={ onChangeHandler }
+        />
+        <button type='submit'>Search</button>
+    </div>
+    );
 }
+
+export default SearchBar;
