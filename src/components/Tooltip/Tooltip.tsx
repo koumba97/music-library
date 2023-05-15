@@ -5,9 +5,7 @@ interface IProps {
 }
 
 const Tooltip = (props: IProps) => {
-    return (
-        <div className="tooltip-text">{props.content}</div>
-    );
-}
+    return <div className="tooltip-text">{props.content}</div>;
+};
 
 export default Tooltip;

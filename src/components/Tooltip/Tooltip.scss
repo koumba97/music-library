@@ -1,8 +1,7 @@
-
 .tooltip {
     width: max-content;
 }
-  
+
 .tooltip .tooltip-text {
     visibility: hidden;
     width: max-content;
@@ -14,7 +13,7 @@
     position: absolute;
     z-index: 1;
 }
-  
+
 .tooltip:hover .tooltip-text {
     visibility: visible;
 }
