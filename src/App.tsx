@@ -6,6 +6,7 @@ import logo from './assets/images/music-library-logo.png';
 import { db } from './firebase_setup/firebase';
 import CardList from './components/CardList/CardList';
 import SeachBar from './components/SearchBar/SearchBar';
+import { refreshAccessToken } from './spotify_setup/token';
 
 export interface IAlbum {
     artist: string;
@@ -20,6 +21,7 @@ const App = () => {
     const [albums, setAlbums] = useState<IAlbum[]>([]);
     
     useEffect(() => {
+        refreshAccessToken();
         getAlbums();
     }, []);
 

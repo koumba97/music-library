@@ -6,6 +6,8 @@ interface IProps {
     album: IAlbum;
 }
 
+
+
 const AlbumCard = ({ album }: IProps) => {
     const { image, title, artist, year } = album;
     return (
