@@ -1,0 +1,14 @@
+.track-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+        margin: 10px 0;   
+    }
+
+    .list-container {
+        overflow: scroll;
+        flex: 1;
+    }
+}

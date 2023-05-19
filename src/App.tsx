@@ -3,7 +3,7 @@ import './App.scss';
 import { getDocs, collection } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import logo from './assets/images/music-library-logo.png';
-import { db } from './firebase_setup/firebase';
+import { db } from './firebase/firebase';
 import CardList from './components/CardList/CardList';
 import SeachBar from './components/SearchBar/SearchBar';
 import { refreshAccessToken } from './spotify/token';
