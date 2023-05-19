@@ -1,13 +1,56 @@
+@import '../../assets/style/tokens.scss';
+
 .album-modal {
-    width: 80vw;
-    height: 80vw;
-    background-color: white;
-    border: solid;
-    border-radius: 20px;
     z-index: 2;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -40vw;
-    margin-left: -40vw;
+
+    .modal-bg {
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        display: flex;
+        align-items: center;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+
+        .modal-container {
+            padding: 24px;
+            margin: auto;
+            width: 80vw;
+            height: 80vw;
+            max-height: 550px;
+            max-width: 750px;
+            background-color: white;
+            border-radius: 20px;
+            z-index: 3;
+            cursor: default;
+            display: flex;
+            justify-content: space-between;
+            gap: 28px;
+
+            .album-cover {
+                width: 300px;
+                height: 300px;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 8px;
+                margin-bottom: 30px;
+                display: block;
+            }
+
+            .album-title {
+                text-align: left;
+                margin: 0;
+                font-size: 24px;
+            }
+            .album-artist {
+                text-align: left;
+                margin: 0;
+                color: $primary;
+                font-weight: 500;
+                font-size: 20px;
+            }
+        }
+    }
 }

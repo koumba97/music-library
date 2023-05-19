@@ -7,9 +7,10 @@ import { AlbumInfo } from '../../spotify/types/AlbumInfo';
 
 interface IProps {
     album: AlbumInfo;
+    closeAlbumModal: Function;
 }
 
-const AlbumModal = ({ album }: IProps) => {
+const AlbumModal = ({ album, closeAlbumModal }: IProps) => {
 
     useEffect(() => {
         //getTracksPreview();
@@ -34,15 +35,32 @@ const AlbumModal = ({ album }: IProps) => {
         }
     } 
 
+    const closeAlbumModalHandler = (event: React.MouseEvent<HTMLDivElement>) => {
+        closeAlbumModal();
+    }
   
     if(album.tracks){
         return (
             <div className="album-modal">
-                {}
-                <audio
-                    controls
-                    src={album.tracks.items[0].preview_url}
-                />
+
+                <div className='modal-bg' onClick={closeAlbumModalHandler}>
+                    <div className='modal-container' onClick={(e) => e.stopPropagation()}>
+                        <div>
+                            <img className='album-cover' alt={`album ${album.name}`} src={album.images[0].url}></img>
+                            <h1 className='album-title'>{album.name}</h1>
+                            <h2 className='album-artist'>{album.artists[0].name}</h2>
+                        </div>
+                        <div>
+                            
+                            <audio
+                                controls
+                                src={album.tracks.items[0].preview_url}
+                            /> 
+                        </div>
+                        
+                    </div>
+                </div>
+
             </div>
         )
     }

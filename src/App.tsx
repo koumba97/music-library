@@ -39,9 +39,8 @@ const App = () => {
         });
     };
 
-    const openAlbumModal = (albumData: AlbumInfo) => {
-        console.log(albumData);
-        //setSelectedAlbum(album);
+    const openAlbumModal = (selectedAlbum: AlbumInfo) => {
+        setSelectedAlbum(selectedAlbum);
     }
 
     const closeAlbumModal = () => {
@@ -78,17 +77,18 @@ const App = () => {
                 <CardList list={filteredAlbums} listType="album" selectAlbum={openAlbumModal} />
             </div>
 
-            <ToggleAlbumModal album={selectedAlbum}/>
+            <ToggleAlbumModal album={selectedAlbum} closeModal={closeAlbumModal}/>
         </div>
     );
 };
 
-const ToggleAlbumModal = (props: {album: AlbumInfo | null}) => {
+const ToggleAlbumModal = (props: {album: AlbumInfo | null, closeModal: Function}) => {
     if (props.album) {
         return (
-            <AlbumModal album={props.album}/>
+            <AlbumModal album={props.album} closeAlbumModal={props.closeModal}/>
         );
     }
     return null;
 }
+
 export default App;
