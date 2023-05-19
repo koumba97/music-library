@@ -6,7 +6,9 @@ import logo from './assets/images/music-library-logo.png';
 import { db } from './firebase_setup/firebase';
 import CardList from './components/CardList/CardList';
 import SeachBar from './components/SearchBar/SearchBar';
-import { refreshAccessToken } from './spotify_setup/token';
+import { refreshAccessToken } from './spotify/token';
+import { AlbumInfo } from './spotify/types/AlbumInfo';
+import AlbumModal from './components/AlbumModal/AlbumModal';
 
 export interface IAlbum {
     artist: string;
@@ -14,11 +16,13 @@ export interface IAlbum {
     id: string;
     year: number;
     image: string;
+    trackId: string;
 }
 
 const App = () => {
     const [searchString, setSearchString] = useState<string>('');
     const [albums, setAlbums] = useState<IAlbum[]>([]);
+    const [selectedAlbum, setSelectedAlbum] = useState<AlbumInfo | null>(null);
     
     useEffect(() => {
         refreshAccessToken();
@@ -34,6 +38,15 @@ const App = () => {
             setAlbums(albums);
         });
     };
+
+    const openAlbumModal = (albumData: AlbumInfo) => {
+        console.log(albumData);
+        //setSelectedAlbum(album);
+    }
+
+    const closeAlbumModal = () => {
+        setSelectedAlbum(null);
+    }
 
     const searchInputOnChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -57,16 +70,25 @@ const App = () => {
                         Explore your passion for music with music library
                     </p>
                 </div>
-
                 <SeachBar
                     placeholder={'Search album'}
                     onChangeHandler={searchInputOnChange}
                 />
 
-                <CardList list={filteredAlbums} listType="album" />
+                <CardList list={filteredAlbums} listType="album" selectAlbum={openAlbumModal} />
             </div>
+
+            <ToggleAlbumModal album={selectedAlbum}/>
         </div>
     );
 };
 
+const ToggleAlbumModal = (props: {album: AlbumInfo | null}) => {
+    if (props.album) {
+        return (
+            <AlbumModal album={props.album}/>
+        );
+    }
+    return null;
+}
 export default App;

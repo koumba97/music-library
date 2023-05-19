@@ -17,6 +17,8 @@ export const getAccessToken = async () => {
 
             localStorage.setItem('music-library-access-token', accessToken);
             localStorage.setItem('music-library-experation-token-time', experationTime.toString());
+
+            console.log('Access token updated');
         });
     }
     catch(error) {
@@ -24,12 +26,12 @@ export const getAccessToken = async () => {
     }
 }
 
-export const refreshAccessToken = () => {
+export const refreshAccessToken = async () => {
     const experationTime = localStorage.getItem('music-library-experation-token-time');
     
     if(experationTime) {
         if(Date.now() >= parseInt(experationTime)) {
-            getAccessToken();
+            await getAccessToken();
         }
     }
 }

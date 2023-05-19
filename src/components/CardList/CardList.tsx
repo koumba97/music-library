@@ -1,6 +1,7 @@
 import './CardList.scss';
 import AlbumCard from '../AlbumCard/AlbumCard';
 import { IAlbum } from '../../App';
+import { AlbumInfo } from '../../spotify/types/AlbumInfo';
 
 type Item = any;
 
@@ -12,17 +13,27 @@ interface IItem extends Item {
 interface IProps {
     list: IItem[];
     listType: string;
+    selectAlbum: Function;
 }
 
-const CardList = (props: IProps) => {
+const test = (ok:any) => {
+    console.log(ok);
+    
+}
+const CardList = ({list, listType, selectAlbum}: IProps) => {
+    const selectAlbumm = (album: AlbumInfo) => {
+        selectAlbum(album);
+    }
+
     return (
         <div className="card-list">
-            {props.list.map((item) => {
-                if (props.listType === 'album')
+            {list.map((item) => {
+                if (listType === 'album')
                     return (
                         <AlbumCard
                             key={item.id}
                             album={item as IAlbum}
+                            selectAlbum={selectAlbumm}
                         ></AlbumCard>
                     );
             })}
