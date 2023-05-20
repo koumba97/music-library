@@ -1,4 +1,6 @@
-@import '../../assets/style/tokens.scss';
+@import '../../assets/style/design-tokens.scss';
+
+$audio-player-height: 70px;
 
 .album-modal {
     z-index: 2;
@@ -26,54 +28,60 @@
             z-index: 3;
             cursor: default;
             display: flex;
-            gap: 28px;
+            flex-direction: column;
 
-
-            .left {
-                .album-cover {
-                    width: 300px;
-                    height: 300px;
-                    object-fit: cover;
-                    object-position: center;
-                    border-radius: 8px;
-                    margin-bottom: 30px;
-                    display: block;
-                }
-    
-                .album-title {
-                    text-align: left;
-                    margin: 0;
-                    font-size: 24px;
-                }
-                .album-artist {
-                    text-align: left;
-                    margin: 0;
-                    color: $primary;
-                    font-weight: 500;
-                    font-size: 20px;
-                }
-            }
-            
-            .right {
-                flex: 1;
+            .content {
                 display: flex;
-                flex-direction: row-reverse;
-                .control-container {
-                    position: relative;
-
-                    .close-icon {
-                        position: absolute;
-                        right: 0;
-                        color: lightgray;
-                        transition: color .3s;
-                        cursor: pointer;
-                        &:hover {
-                            color: $primary;
+                max-height: inherit;
+                height: calc(100% - $audio-player-height);
+                gap: 28px;
+    
+                .left {
+                    .album-cover {
+                        width: 300px;
+                        height: 300px;
+                        object-fit: cover;
+                        object-position: center;
+                        border-radius: 8px;
+                        margin-bottom: 30px;
+                        display: block;
+                    }
+        
+                    .album-title {
+                        text-align: left;
+                        margin: 0;
+                        font-size: 24px;
+                    }
+                    .album-artist {
+                        text-align: left;
+                        margin: 0;
+                        color: $primary;
+                        font-weight: 500;
+                        font-size: 20px;
+                    }
+                }
+                
+                .right {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: row-reverse;
+                    .control-container {
+                        position: relative;
+    
+                        .close-icon {
+                            position: absolute;
+                            right: 0;
+                            color: $light-grey;
+                            transition: color .3s;
+                            cursor: pointer;
+                            &:hover {
+                                color: $primary;
+                            }
                         }
                     }
                 }
+               
             }
-           
         }
     }
 }

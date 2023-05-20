@@ -1,4 +1,5 @@
 import { Track } from "../../spotify/types/Track";
+import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import TrackItem from "../TrackItem/TrackItem";
 import './TrackList.scss';
 
@@ -13,11 +14,12 @@ const TrackList = ({track} : IProps) => {
             <div className="list-container">
                {track.items.map((item) => {
                     return (
-                        <TrackItem track={item}/>
+                        <TrackItem track={item} key={item.id}/>
                     );
                 })} 
             </div>
-            
+
+            {/* <AudioPlayer src='https://p.scdn.co/mp3-preview/6efdd411c0560a2ab611ad4bb376ab1ec1e342f8?cid=0ad60515fef0487baf824b155bbd7ed8'/>             */}
         </div>
     );
 }

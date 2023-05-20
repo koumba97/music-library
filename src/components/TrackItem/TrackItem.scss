@@ -1,5 +1,7 @@
+@import '../../assets/style/design-tokens.scss';
+
 .track-item {
-    border-bottom: solid lightgray;
+    border-bottom: solid $light-grey;
     padding-bottom: 8px;
     margin-bottom: 8px;
     .track-name {

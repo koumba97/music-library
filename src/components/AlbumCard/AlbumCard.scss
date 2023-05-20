@@ -1,4 +1,4 @@
-@import '../../assets/style/tokens.scss';
+@import '../../assets/style/design-tokens.scss';
 
 .album-card {
     width: 200px;
@@ -47,6 +47,6 @@
 
     &:hover {
         bottom: 10px;
-        border-color: lightgray;
+        border-color: $light-grey;
     }
 }

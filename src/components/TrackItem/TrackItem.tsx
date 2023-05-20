@@ -10,10 +10,10 @@ const TrackItem = ({track}: IProps) => {
     return (
         <div className="track-item">
             <p className="track-name">{track.name}</p>
-            <audio
+            {/* <audio
                 controls
                 src={track.preview_url}
-            /> 
+            />  */}
         </div>
     )
 }
