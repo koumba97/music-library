@@ -43,21 +43,21 @@ $audio-player-height: 70px;
                         object-fit: cover;
                         object-position: center;
                         border-radius: 8px;
-                        margin-bottom: 30px;
+                        margin-bottom: 16px;
                         display: block;
                     }
         
                     .album-title {
                         text-align: left;
                         margin: 0;
-                        font-size: 24px;
+                        font-size: 32px;
                     }
                     .album-artist {
                         text-align: left;
                         margin: 0;
                         color: $primary;
                         font-weight: 500;
-                        font-size: 20px;
+                        font-size: 24px;
                     }
                 }
                 

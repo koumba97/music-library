@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay,faPause, faVolumeUp, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
 import './AudioPlayer.scss';
+import { TrackItem } from '../../spotify/types/TrackItem';
 
 interface IProps {
-    src: string;
+    track: TrackItem | null;
 }
 
-const AudioPlayer = (props: IProps) => {
-    const [audio, setAudio] = useState(new Audio(props.src));
+const AudioPlayer = ({track}: IProps) => {
+    const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMute, setIsMute] = useState(false);
     const [musicProgress, setMusicProgress] = useState(0);
@@ -19,30 +20,51 @@ const AudioPlayer = (props: IProps) => {
         }
     }, []);
 
-    audio.addEventListener('timeupdate', () => {
-        const audioPercentProgress = (100 / audio.duration) * audio.currentTime;
-        setMusicProgress(audioPercentProgress);
+    useEffect(() => {
+        if(track){
+            stopAudio();
+            audioRef.current?.play();
+            setIsPlaying(true);
+        }
+    }, [track?.preview_url]);
+
+    audioRef.current?.addEventListener('timeupdate', () => {
+        if(audioRef.current) {
+            const audioPercentProgress = (100 / audioRef.current.duration) * audioRef.current.currentTime;
+            setMusicProgress(audioPercentProgress);
+        }
     });
 
     const stopAudio = () => {
-        audio.pause();
-        setAudio(audio);
+        if(audioRef.current){
+            audioRef.current.pause();
+            setIsPlaying(false);
+        }
     };
 
     const toggleAudio = () => {
         setIsPlaying(!isPlaying);
-        isPlaying ? audio.pause() : audio.play();
+        if(audioRef.current){
+            isPlaying ? audioRef.current.pause() : audioRef.current.play();
+        }
+
     };
 
     function toggleSound() {
         setIsMute(!isMute);
-        isMute ? (audio.muted = false) : (audio.muted = true);
+        if(audioRef.current){
+              isMute ? (audioRef.current.muted = false) : (audioRef.current.muted = true);
+        }
+      
     }
 
     const changeMusicProgress = (event: any) => {
         setMusicProgress(event.target.value);
-        const percentagePosition = (audio.duration / 100) * event.target.value;
-        audio.currentTime = percentagePosition;
+        if(audioRef.current){
+           const percentagePosition = (audioRef.current.duration / 100) * event.target.value;
+        audioRef.current!.currentTime = percentagePosition; 
+        }
+        
     };
 
     const PlayerButton = () => {
@@ -63,13 +85,14 @@ const AudioPlayer = (props: IProps) => {
 
     return (
         <div className="audio-player">
+            <audio src={track?.preview_url} ref={audioRef} />
             <div className="controls">
                 <PlayerButton />
                 <input
                     type="range"
                     className="timeline"
                     max="100"
-                    value={musicProgress}
+                    value={musicProgress ? musicProgress : 0}
                     onChange={changeMusicProgress}
                     style={{ backgroundSize: musicProgress + '%' }}
                 />
