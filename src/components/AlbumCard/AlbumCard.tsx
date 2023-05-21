@@ -50,10 +50,13 @@ const AlbumCard = ({ album, selectAlbum }: IProps) => {
         >
             <img alt={`album ${title}`} src={image}></img>
 
-            <TitleRendering title={title} />
+            <div className='album-info'>
+                <TitleRendering title={title} />
 
-            <p className="album-artist">{artist}</p>
-            <p className="album-year">{year}</p>
+                <p className="album-artist">{artist}</p>
+                <p className="album-year">{year}</p>
+            </div>
+   
         </div>
     );
 };

@@ -19,6 +19,12 @@
         gap: 8px;
     }
 
+    .track-name {
+        margin: 0 0 8px 4px;
+        color: gray;
+        font-weight: bold;
+    }
+
     .player-button, .sound-button {
         background-color: transparent;
         border: none;
@@ -37,7 +43,7 @@
         background-color: #e5e5e5;
         border-radius: 5px;
         background-size: 0% 100%;
-        background-image: linear-gradient(#f7b1d0, $primary);
+        background-image: linear-gradient($primary, $primary);
         background-repeat: no-repeat;
         margin-right: var(--space);
 

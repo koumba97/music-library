@@ -47,7 +47,6 @@ const AudioPlayer = ({track}: IProps) => {
         if(audioRef.current){
             isPlaying ? audioRef.current.pause() : audioRef.current.play();
         }
-
     };
 
     function toggleSound() {
@@ -85,7 +84,9 @@ const AudioPlayer = ({track}: IProps) => {
 
     return (
         <div className="audio-player">
+
             <audio src={track?.preview_url} ref={audioRef} />
+            <p className='track-name'>{track?.name} - {track ? track.artists[0].name : null}</p>
             <div className="controls">
                 <PlayerButton />
                 <input

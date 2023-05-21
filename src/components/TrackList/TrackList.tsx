@@ -7,9 +7,10 @@ import './TrackList.scss';
 interface IProps {
     track: Track;
     playTrack: Function;
+    playingTrack: string | undefined;
 }
 
-const TrackList = ({track, playTrack} : IProps) => {
+const TrackList = ({track, playTrack, playingTrack} : IProps) => {
     const clickHandler = (track: TrackItemInterface ) => {
         playTrack(track);
     };
@@ -20,7 +21,7 @@ const TrackList = ({track, playTrack} : IProps) => {
             <div className="list-container">
                {track.items.map((item) => {
                     return (
-                        <TrackItem track={item} key={item.id} playTrack={clickHandler}/>
+                        <TrackItem track={item} key={item.id} playTrack={clickHandler} isPlaying={playingTrack == item.id}/>
                     );
                 })} 
             </div>

@@ -13,6 +13,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #fafafa;
+    overflow: hidden;
     &:before {
         content: '';
         position: absolute;

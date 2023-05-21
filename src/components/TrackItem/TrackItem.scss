@@ -14,11 +14,23 @@
         margin: 0;
     }
 
+
     .play-icon {
         opacity: 0;
         transition: opacity .3s;
     }
 
+    &.is-playing {
+        background-color: rgba(0, 0, 0, 0.044);
+        .track-name {
+            font-weight: bold;
+            color: $primary;
+        }
+        .play-icon {
+            opacity: 1;
+            color: $primary;
+        }
+    }
     &:hover {
         color: $primary;
         background-color: rgba(0, 0, 0, 0.044);
@@ -26,5 +38,9 @@
             opacity: 1;
         }
     }
+}
 
+.line {
+    border: solid 0.5px $light-grey;
+    margin-bottom: 8px;
 }

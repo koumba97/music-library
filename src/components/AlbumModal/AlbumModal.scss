@@ -51,6 +51,7 @@ $audio-player-height: 70px;
                         text-align: left;
                         margin: 0;
                         font-size: 32px;
+                        max-width: 300px;
                     }
                     .album-artist {
                         text-align: left;
@@ -58,6 +59,12 @@ $audio-player-height: 70px;
                         color: $primary;
                         font-weight: 500;
                         font-size: 24px;
+                    }
+                    .album-date {
+                        margin: 0;
+                        color: gray;
+                        font-size: 12px;
+                        margin-top: 8px;
                     }
                 }
                 
@@ -80,7 +87,18 @@ $audio-player-height: 70px;
                         }
                     }
                 }
-               
+            }
+
+            .info-container {
+                margin-top: 12px;
+                .spotify-logo {
+                    margin-bottom: 12px;
+                }
+                .label, .copyright {
+                    color: $light-grey;
+                    font-size: 12px;
+                    margin: 0;
+                }
             }
         }
     }

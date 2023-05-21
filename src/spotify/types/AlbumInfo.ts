@@ -10,7 +10,9 @@ export interface AlbumInfo {
     album_type: string,
     total_tracks: number,
     available_markets: string[],
-    external_urls: {},
+    external_urls: {
+        spotify: string;
+    },
     href: string,
     images: Image[],
     release_date: string,
@@ -21,6 +23,7 @@ export interface AlbumInfo {
         ean: string,
         upc: string,
     },
+    label: string,
     genres: string[],
     artists: Artist[],
     tracks: Track,
