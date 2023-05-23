@@ -20,7 +20,7 @@ $audio-player-height: 70px;
             padding: 24px;
             margin: auto;
             width: 80vw;
-            height: 80vw;
+            height: 80vh;
             max-height: 550px;
             max-width: 750px;
             background-color: white;
@@ -101,6 +101,91 @@ $audio-player-height: 70px;
                             cursor: pointer;
                             &:hover {
                                 color: $primary;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1px) and (max-width: 340px) {
+    .album-modal {
+        z-index: 2;
+    
+        .modal-bg {
+            .modal-container {
+                max-height: unset;
+                padding: 18px;
+                .content {
+                    flex-direction: column;
+                    gap: 0;
+                    height: calc( 100% - 70px);
+
+                    .left {
+                        position: relative;
+                        display: block;
+    
+                        .album-cover {
+                            width: 80vw;
+                            height: 80vw;
+                            margin: auto;
+                            margin-bottom: 8px;
+                        }
+            
+                        .album-title {
+                            font-size: 18px;
+                            max-width: unset;
+                        }
+                        .album-artist {
+                            font-size: 12px;
+                        }
+    
+                        .info-container {
+                            position: relative;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: flex-end;
+                            .spotify-logo {
+                                width: 60px;
+                                height: auto;
+                                margin: 0;
+                            }
+                            .label {
+                                font-size: 10px;
+                                position: relative;
+                                bottom: 4px;
+                            }
+                        }
+                    }
+
+                    .right {
+                        
+                        overflow: scroll;
+                        flex-direction: row-reverse;
+                        padding: 0;
+
+                        .list-title, .control-container {
+                            display: none;
+                        }
+
+                        .list-container {
+                            overflow: unset;
+                            .track-item {
+                                padding: 8px;
+                                margin: 0;
+                                border-radius: 0;
+                                .track-name, .track-index {
+                                    font-size: 12px;
+                                }  
+                                .play-icon {
+                                    display: none;
+                                }
+                               
+                            }
+                            .line {
+                                margin-bottom: 0;
                             }
                         }
                     }

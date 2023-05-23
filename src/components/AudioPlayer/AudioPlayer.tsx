@@ -24,6 +24,7 @@ const AudioPlayer = ({track}: IProps) => {
         if(track){
             stopAudio();
             audioRef.current?.play();
+            audioRef.current!.volume = 0.1;
             setIsPlaying(true);
         }
     }, [track?.preview_url]);
