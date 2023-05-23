@@ -23,6 +23,9 @@ body {
         width: 100%;
         background: -webkit-linear-gradient(to right, #ffffff, #dadada);
         background: linear-gradient(to right, #ffffff, #dadada);
+        background-image: url('./assets/images/abstract-background.jpg');
+        background-position: top;
+        background-size: cover;
         border-radius: 0 0 50% 50%/0 0 100% 100%;
         transform: scaleX(1.5);
     }
@@ -59,8 +62,9 @@ body {
             left: 0;
             height: 250px;
             width: 100%;
-            background: -webkit-linear-gradient(to right, #ffffff, #dadada);
-            background: linear-gradient(to right, #ffffff, #dadada);
+            // background: -webkit-linear-gradient(to right, #ffffff, #dadada);
+            // background: linear-gradient(to right, #ffffff, #dadada);
+            background-size: cover;
             border-radius: 0 0 50% 50%/0 0 100% 100%;
             transform: scaleX(1.5);
         }

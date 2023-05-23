@@ -10,7 +10,7 @@ import TrackList from '../TrackList/TrackList';
 import { Track } from '../../spotify/types/Track';
 import { TrackItem } from '../../spotify/types/TrackItem';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
-import spotifyLogo from '../../assets/images/spotify-logo.png';
+import spotifyLogo from '../../assets/images/listen-on-spotify-2.png';
 
 interface IProps {
     album: AlbumInfo;
@@ -49,7 +49,6 @@ const AlbumModal = ({ album, closeAlbumModal }: IProps) => {
                                 <h2 className="album-artist">
                                     {album.artists[0].name}
                                 </h2>
-                                <p className='album-date'>{album.release_date.slice(0, 4)}</p>
                                 
                                 <AlbumInfoContainer album={album}/>
                             </div>
@@ -90,7 +89,9 @@ const AlbumInfoContainer = (props: {album: AlbumInfo}) => {
             <a href={props.album.external_urls.spotify} target='_blank'>
                 <img src={spotifyLogo} className="spotify-logo" alt="Logo" height={30}/>
             </a>
-            <p className='label'>{props.album.label}</p>
+            <p className='label'>
+                {props.album.release_date.slice(0, 4)} - {props.album.label}
+                </p>
         </div>
     );
 }

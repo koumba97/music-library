@@ -52,7 +52,7 @@ const AudioPlayer = ({track}: IProps) => {
     function toggleSound() {
         setIsMute(!isMute);
         if(audioRef.current){
-              isMute ? (audioRef.current.muted = false) : (audioRef.current.muted = true);
+            isMute ? (audioRef.current.muted = false) : (audioRef.current.muted = true);
         }
       
     }
@@ -61,7 +61,7 @@ const AudioPlayer = ({track}: IProps) => {
         setMusicProgress(event.target.value);
         if(audioRef.current){
            const percentagePosition = (audioRef.current.duration / 100) * event.target.value;
-        audioRef.current!.currentTime = percentagePosition; 
+            audioRef.current!.currentTime = percentagePosition; 
         }
         
     };
