@@ -8,9 +8,10 @@ interface IProps {
     track: TrackItemInterface;
     playTrack: Function;
     isPlaying: boolean;
+    index: number
 }
 
-const TrackItem = ({track, playTrack, isPlaying}: IProps) => {
+const TrackItem = ({track, playTrack, isPlaying, index}: IProps) => {
     const clickHandler = () => {
         playTrack(track);
     };
@@ -18,7 +19,11 @@ const TrackItem = ({track, playTrack, isPlaying}: IProps) => {
     return (
         <> 
             <div className={"track-item " + (isPlaying ? 'is-playing' : '')} onClick={clickHandler}>
-                <p className="track-name">{track.name}</p>
+                <div>
+                    <span className="track-index">{index}</span>
+                    <p className="track-name">{track.name}</p>
+                </div>
+              
                 { isPlaying ? <FontAwesomeIcon icon={faMusic} size="lg" className="play-icon"/> : <FontAwesomeIcon icon={faPlay} size="lg" className="play-icon"/> }
             </div>
             <div className="line"></div>

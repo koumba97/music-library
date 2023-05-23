@@ -91,7 +91,7 @@ const AlbumInfoContainer = (props: {album: AlbumInfo}) => {
             </a>
             <p className='label'>
                 {props.album.release_date.slice(0, 4)} - {props.album.label}
-                </p>
+            </p>
         </div>
     );
 }

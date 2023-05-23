@@ -37,8 +37,9 @@ $audio-player-height: 70px;
                 gap: 28px;
     
                 .left {
-                    display: flex;
-                    flex-direction: column;
+                    position: relative;
+                    display: block;
+
                     .album-cover {
                         width: 300px;
                         height: 300px;
@@ -63,13 +64,25 @@ $audio-player-height: 70px;
                         font-size: 20px;
                     }
 
-                    .spotify-logo {
-                        width: max-content;
-                        margin: 0;
-                        width: 110px;
-                        height: 40px;
-                        object-fit: contain;
-                        object-position: left;
+                    .info-container {
+                        margin-top: 12px;
+                        position: absolute;
+                        bottom: 0;
+        
+                        .spotify-logo {
+                            width: max-content;
+                            margin: 0;
+                            width: 110px;
+                            height: 40px;
+                            object-fit: contain;
+                            object-position: left;
+                            margin-bottom: 4px;
+                        }
+                        .label {
+                            color: $light-grey;
+                            font-size: 12px;
+                            margin: 0;
+                        }
                     }
                 }
                 
@@ -91,25 +104,6 @@ $audio-player-height: 70px;
                             }
                         }
                     }
-                }
-            }
-
-            .info-container {
-                margin-top: 12px;
-                position: relative;
-                display: block;
-                height: 100%;
-
-                .spotify-logo {
-                    margin-bottom: 12px;
-                }
-                .label {
-                    color: $light-grey;
-                    font-size: 12px;
-                    margin: 0;
-                    position: absolute;
-                    bottom: 0;
-
                 }
             }
         }

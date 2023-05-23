@@ -7,6 +7,26 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+  
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: transparent;
+}
+  
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.19);
+    opacity: 0;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
 .app {
     padding: 40px 100px 50px;
     position: relative;
