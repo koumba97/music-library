@@ -40,6 +40,15 @@ const AlbumModal = ({ album, closeAlbumModal }: IProps) => {
                     >
                         <div className="content">
                             <div className="left">
+                                <div
+                                    onClick={closeAlbumModalHandler}
+                                    className="close-icon"
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faXmark}
+                                        size="xl"
+                                    />
+                                </div>
                                 <img
                                     className="album-cover"
                                     alt={`album ${album.name}`}

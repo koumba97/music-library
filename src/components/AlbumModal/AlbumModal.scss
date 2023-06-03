@@ -84,6 +84,10 @@ $audio-player-height: 70px;
                             margin: 0;
                         }
                     }
+
+                    .close-icon {
+                        display: none;
+                    }
                 }
                 
                 .right {
@@ -137,7 +141,10 @@ $audio-player-height: 70px;
         .modal-bg {
             .modal-container {
                 max-height: unset;
-                padding: 18px;
+                padding: 8px 18px 18px 18px;
+                width: 70vw;
+                height: 85vh;
+
                 .content {
                     flex-direction: column;
                     gap: 0;
@@ -148,8 +155,8 @@ $audio-player-height: 70px;
                         display: block;
     
                         .album-cover {
-                            width: 80vw;
-                            height: 80vw;
+                            width: 70vw;
+                            height: 70vw;
                             margin: auto;
                             margin-bottom: 8px;
                         }
@@ -176,6 +183,18 @@ $audio-player-height: 70px;
                                 font-size: 10px;
                                 position: relative;
                                 bottom: 4px;
+                            }
+                        }
+                        
+                        .close-icon {
+                            display: block;
+                            text-align: right;
+                            color: $light-grey;
+                            transition: color .3s;
+                            margin-bottom: 8px;
+                            cursor: pointer;
+                            &:hover {
+                                color: $primary;
                             }
                         }
                     }
