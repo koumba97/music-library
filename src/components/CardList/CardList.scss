@@ -1,3 +1,5 @@
+@import '../../assets/style/variables.scss';
+
 .card-list {
     display: grid;
     gap: 20px;
@@ -7,20 +9,20 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-@media (min-width: 900px) and (max-width: 1200px) {
+@media (min-width: $lg-breakpoint) and (max-width: $xl-breakpoint) {
     .card-list {
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
 
-@media (min-width: 735px) and (max-width: 900px) {
+@media (min-width: $md-breakpoint) and (max-width: $lg-breakpoint) {
     .card-list {
         grid-template-columns: 1fr 1fr;
         width: max-content;
     }
 }
 
-@media (min-width: 1px) and (max-width: 735px) {
+@media (min-width: 1px) and (max-width: $md-breakpoint) {
     .card-list {
         width: 100%;
         display: flex;

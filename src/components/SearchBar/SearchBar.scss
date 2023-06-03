@@ -1,4 +1,4 @@
-@import '../../assets/style/design-tokens.scss';
+@import '../../assets/style/variables.scss';
 
 .search-bar {
     background-color: white;
@@ -48,7 +48,7 @@
     }
 }
 
-@media (min-width: 1px) and (max-width: 600px) {
+@media (min-width: 1px) and (max-width: $md-breakpoint) {
     .search-bar {
         width: calc(100% - 20px);
         max-width: unset;

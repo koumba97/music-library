@@ -1,3 +1,5 @@
+@import './assets/style/variables.scss';
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
@@ -43,7 +45,7 @@ body {
         width: 100%;
         background: -webkit-linear-gradient(to right, #ffffff, #dadada);
         background: linear-gradient(to right, #ffffff, #dadada);
-        background-image: url('./assets/images/abstract-background.jpg');
+        //background-image: url('./assets/images/abstract-background.jpg');
         background-position: top;
         background-size: cover;
         border-radius: 0 0 50% 50%/0 0 100% 100%;
@@ -71,7 +73,7 @@ body {
     }
 }
 
-@media (min-width: 1px) and (max-width: 500px) {
+@media (min-width: 1px) and (max-width: $sm-breakpoint) {
     .app {
         padding: 20px;
         overflow: hidden;

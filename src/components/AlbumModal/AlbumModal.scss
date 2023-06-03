@@ -1,4 +1,4 @@
-@import '../../assets/style/design-tokens.scss';
+@import '../../assets/style/variables.scss';
 
 $audio-player-height: 70px;
 
@@ -110,10 +110,30 @@ $audio-player-height: 70px;
     }
 }
 
-@media (min-width: 1px) and (max-width: 400px) {
+@media (min-width: $sm-breakpoint) and (max-width: $md-breakpoint) {
+    .album-modal {
+
+        .modal-bg {
+
+            .modal-container {
+
+                .content {
+                    gap: 20px;
+                    .left {
+                        .album-cover {
+                            width: 40vw;
+                            height: 40vw;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1px) and (max-width: $sm-breakpoint) {
     .album-modal {
         z-index: 2;
-    
         .modal-bg {
             .modal-container {
                 max-height: unset;
