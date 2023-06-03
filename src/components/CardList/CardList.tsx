@@ -16,10 +16,6 @@ interface IProps {
     selectAlbum: Function;
 }
 
-const test = (ok:any) => {
-    console.log(ok);
-    
-}
 const CardList = ({list, listType, selectAlbum}: IProps) => {
     const selectAlbumm = (album: AlbumInfo) => {
         selectAlbum(album);

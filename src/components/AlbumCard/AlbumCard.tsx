@@ -14,6 +14,7 @@ interface IProps {
 const AlbumCard = ({ album, selectAlbum }: IProps) => {
 
     const [albumData, setAlbumData] = useState<AlbumInfo>({} as AlbumInfo);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         getAlbumData();
@@ -34,7 +35,9 @@ const AlbumCard = ({ album, selectAlbum }: IProps) => {
                     Authorization: `Bearer ${localStorage.getItem('music-library-access-token')}`
                 }
             }).then(response => {
-                setAlbumData(response.data)
+                setAlbumData(response.data);
+                setLoading(false);
+
             });
         }
         catch(error) {
@@ -42,23 +45,29 @@ const AlbumCard = ({ album, selectAlbum }: IProps) => {
         }
     } 
 
-    const { image, title, artist, year } = album;
-    return (
-        <div 
-            className="album-card"
-            onClick={clickHandler}
-        >
-            <img alt={`album ${title}`} src={image}></img>
-
-            <div className='album-info'>
-                <TitleRendering title={title} />
-
-                <p className="album-artist">{artist}</p>
-                <p className="album-year">{year}</p>
+    const { images, name, artists, release_date } = albumData;
+    if(!loading){
+        return (
+            <div 
+                className="album-card"
+                onClick={clickHandler}
+            >
+                <img alt={`album ${name}`} src={images[0].url}></img>
+    
+                <div className='album-info'>
+                    <TitleRendering title={albumData.name} />
+    
+                    <p className="album-artist">{artists[0].name}</p>
+                    <p className="album-year">{release_date.slice(0, 4)}</p>
+                </div>
+       
             </div>
-   
-        </div>
-    );
+        );
+    }
+    return(
+        <></>
+    )
+    
 };
 
 const TitleRendering = (props: { title: string }) => {
