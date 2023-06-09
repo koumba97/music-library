@@ -1,4 +1,5 @@
 # Music library 🎵
+![Music library app preview](./src/assets//images//app-preview.png)
 
 The Music Library is a simple React web application using [Spotify API](https://developer.spotify.com/) that allows users to browse a limited collection of my favorite albums using a search bar. 
 
