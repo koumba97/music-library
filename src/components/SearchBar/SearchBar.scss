@@ -48,7 +48,7 @@
     }
 }
 
-@media (min-width: 1px) and (max-width: $md-breakpoint) {
+@media (min-width: $sm-breakpoint) and (max-width: $md-breakpoint) {
     .search-bar {
         width: calc(100% - 20px);
         max-width: unset;

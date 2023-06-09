@@ -36,6 +36,7 @@ body {
     flex-direction: column;
     background-color: #fafafa;
     overflow: hidden;
+    min-height: 100vh;
     &:before {
         content: '';
         position: absolute;
@@ -73,7 +74,7 @@ body {
     }
 }
 
-@media (min-width: 1px) and (max-width: $sm-breakpoint) {
+@media (min-width: 1px) and (max-width: $md-breakpoint) {
     .app {
         padding: 20px;
         overflow: hidden;
@@ -101,6 +102,10 @@ body {
                     font-size: 15px;
                 }
             }
+        }
+
+        .search-bar {
+            margin-bottom: 50px;
         }
     }
 }
