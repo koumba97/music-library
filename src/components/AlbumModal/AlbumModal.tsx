@@ -7,18 +7,20 @@ import { AlbumInfo } from '../../spotify/types/AlbumInfo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import TrackList from '../TrackList/TrackList';
-import { Track } from '../../spotify/types/Track';
-import { TrackItem } from '../../spotify/types/TrackItem';
+import { Track } from '../../deezer/types/Track';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
 import spotifyLogo from '../../assets/images/listen-on-spotify-2.png';
+import { Album } from '../../deezer/types/Album';
 
 interface IProps {
-    album: AlbumInfo;
+    album: Album;
     closeAlbumModal: Function;
 }
 
 const AlbumModal = ({ album, closeAlbumModal }: IProps) => {
-    const [playingTrack, setPlayingTrack] = useState<TrackItem | null>(null);
+    const [playingTrack, setPlayingTrack] = useState<Track | undefined>(
+        undefined
+    );
 
     const closeAlbumModalHandler = (
         event: React.MouseEvent<HTMLDivElement>
@@ -26,82 +28,78 @@ const AlbumModal = ({ album, closeAlbumModal }: IProps) => {
         closeAlbumModal();
     };
 
-    const playTrack = (track: TrackItem) => {
+    const playTrack = (track: Track) => {
         setPlayingTrack(track);
     };
+    if (!album) return null;
+    return (
+        <div className="album-modal">
+            <div className="modal-bg" onClick={closeAlbumModalHandler}>
+                <div
+                    className="modal-container"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div className="content">
+                        <div className="left">
+                            <div
+                                onClick={closeAlbumModalHandler}
+                                className="close-icon"
+                            >
+                                <FontAwesomeIcon icon={faXmark} size="xl" />
+                            </div>
+                            <img
+                                className="album-cover"
+                                alt={`album ${album.title}`}
+                                src={album.cover_medium}
+                            ></img>
+                            <h1 className="album-title">{album.title}</h1>
+                            <h2 className="album-artist">
+                                {album.artist?.name}
+                            </h2>
 
-    if (album.tracks) {
-        return (
-            <div className="album-modal">
-                <div className="modal-bg" onClick={closeAlbumModalHandler}>
-                    <div
-                        className="modal-container"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <div className="content">
-                            <div className="left">
+                            <AlbumInfoContainer album={album} />
+                        </div>
+
+                        <div className="right">
+                            <div className="control-container">
                                 <div
                                     onClick={closeAlbumModalHandler}
                                     className="close-icon"
                                 >
-                                    <FontAwesomeIcon
-                                        icon={faXmark}
-                                        size="xl"
-                                    />
+                                    <FontAwesomeIcon icon={faXmark} size="xl" />
                                 </div>
-                                <img
-                                    className="album-cover"
-                                    alt={`album ${album.name}`}
-                                    src={album.images[0].url}
-                                ></img>
-                                <h1 className="album-title">{album.name}</h1>
-                                <h2 className="album-artist">
-                                    {album.artists[0].name}
-                                </h2>
-                                
-                                <AlbumInfoContainer album={album}/>
                             </div>
-
-                            <div className="right">
-                                <div className="control-container">
-                                    <div
-                                        onClick={closeAlbumModalHandler}
-                                        className="close-icon"
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faXmark}
-                                            size="xl"
-                                        />
-                                    </div>
-                                </div>
-                                <TrackList
-                                    track={album.tracks}
-                                    playTrack={playTrack}
-                                    playingTrack={playingTrack?.id}
-                                />
-                            </div>
+                            <TrackList
+                                tracks={album.tracks.data}
+                                playTrack={playTrack}
+                                playingTrack={playingTrack}
+                            />
                         </div>
-
-                        <AudioPlayer track={playingTrack} key={playTrack?.name} />
                     </div>
+
+                    <AudioPlayer track={playingTrack} key={playTrack?.name} />
                 </div>
             </div>
-        );
-    }
-
-    return null;
+        </div>
+    );
 };
 
-const AlbumInfoContainer = (props: {album: AlbumInfo}) => {
-    return(
-        <div className='info-container'>
-            <a href={props.album.external_urls.spotify} target='_blank'>
-                <img src={spotifyLogo} className="spotify-logo" alt="Logo" height={30}/>
+const AlbumInfoContainer = (props: { album: Album }) => {
+    return (
+        <div className="info-container">
+            <a href={props.album.link} target="_blank">
+                {/* <img
+                    src={spotifyLogo}
+                    className="spotify-logo"
+                    alt="Logo"
+                    height={30}
+                /> */}
+                deezer logo here
             </a>
-            <p className='label'>
-                {props.album.release_date.slice(0, 4)} - {props.album.label}
+            <p className="label">
+                {props.album.release_date} - {props.album.label}
             </p>
         </div>
     );
-}
+};
 export default AlbumModal;

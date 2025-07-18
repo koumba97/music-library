@@ -10,6 +10,7 @@ import { refreshAccessToken } from './spotify/token';
 import { AlbumInfo } from './spotify/types/AlbumInfo';
 import AlbumModal from './components/AlbumModal/AlbumModal';
 import { albumList } from './data/albumList';
+import { Album } from './deezer/types/Album';
 
 export interface IAlbum {
     artist: string;
@@ -22,8 +23,10 @@ export interface IAlbum {
 
 const App = () => {
     const [searchString, setSearchString] = useState<string>('');
-    const [albums, setAlbums] = useState<string[] | undefined>(undefined);
-    const [selectedAlbum, setSelectedAlbum] = useState<AlbumInfo | null>(null);
+    const [albums, setAlbums] = useState<Album[] | undefined>(undefined);
+    const [selectedAlbum, setSelectedAlbum] = useState<Album | undefined>(
+        undefined
+    );
 
     useEffect(() => {
         refreshAccessToken();
@@ -31,6 +34,7 @@ const App = () => {
     }, []);
 
     const getAlbum = async () => {
+        let albumResp = [];
         for (const albumId of albumList) {
             try {
                 const res = await fetch(
@@ -38,19 +42,20 @@ const App = () => {
                 );
                 const data = await res.json();
                 console.log(data);
+                albumResp.push(data);
             } catch (err) {
                 console.error(`Erreur pour l'album ${albumId}:`, err);
             }
         }
-        setAlbums(albumList);
+        setAlbums(albumResp);
     };
 
-    const openAlbumModal = (selectedAlbum: AlbumInfo) => {
+    const openAlbumModal = (selectedAlbum: Album) => {
         setSelectedAlbum(selectedAlbum);
     };
 
     const closeAlbumModal = () => {
-        setSelectedAlbum(null);
+        setSelectedAlbum(undefined);
     };
 
     const searchInputOnChange = (
@@ -80,34 +85,25 @@ const App = () => {
                     onChangeHandler={searchInputOnChange}
                 />
 
-                {/* <CardList
-                    list={filteredAlbums}
-                    listType="album"
-                    selectAlbum={openAlbumModal}
-                /> */}
+                {albums ? (
+                    <CardList
+                        albumList={albums}
+                        listType="album"
+                        selectAlbum={openAlbumModal}
+                    />
+                ) : (
+                    'waiting'
+                )}
             </div>
 
-            <ToggleAlbumModal
-                album={selectedAlbum}
-                closeModal={closeAlbumModal}
-            />
+            {selectedAlbum ? (
+                <AlbumModal
+                    album={selectedAlbum}
+                    closeAlbumModal={closeAlbumModal}
+                />
+            ) : null}
         </div>
     );
-};
-
-const ToggleAlbumModal = (props: {
-    album: AlbumInfo | null;
-    closeModal: Function;
-}) => {
-    if (props.album) {
-        return (
-            <AlbumModal
-                album={props.album}
-                closeAlbumModal={props.closeModal}
-            />
-        );
-    }
-    return null;
 };
 
 export default App;

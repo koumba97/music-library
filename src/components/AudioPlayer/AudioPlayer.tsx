@@ -7,10 +7,10 @@ import {
     faVolumeXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import './AudioPlayer.scss';
-import { TrackItem } from '../../spotify/types/TrackItem';
+import { Track } from '../../deezer/types/Track';
 
 interface IProps {
-    track: TrackItem | null;
+    track: Track | undefined;
 }
 
 const AudioPlayer = ({ track }: IProps) => {
@@ -19,41 +19,15 @@ const AudioPlayer = ({ track }: IProps) => {
     const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
     const [isMute, setIsMute] = useState(false);
     const [musicProgress, setMusicProgress] = useState(0);
-
     useEffect(() => {
-        return () => {
-            stopAudio();
-        };
-    }, [track]);
-
-    useEffect(() => {
-        if (track) {
-            stopAudio();
-            // audioRef.current?.play();
-            // audioRef.current!.volume = 0.1;
+        if (track && audioRef.current) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.load();
+            audioRef.current.play();
             setIsPlaying(true);
-            getAudioPreviewUrl(track.name);
+            setPreviewUrl(track.preview);
         }
-    }, [track?.name]);
-
-    const getAudioPreviewUrl = async (trackName: string) => {
-        const res = await fetch('http://localhost:3001/test', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                song: trackName,
-                artist: track?.artists[0].name,
-            }),
-        });
-        if (res.ok) {
-            const data = await res.json();
-            setPreviewUrl(data[0].previewUrls[0]);
-            console.log(data);
-            console.log('aaaa', previewUrl, trackName);
-        } else {
-            console.log('fail');
-        }
-    };
+    }, [track]);
 
     audioRef.current?.addEventListener('timeupdate', () => {
         if (audioRef.current) {
@@ -63,13 +37,6 @@ const AudioPlayer = ({ track }: IProps) => {
             setMusicProgress(audioPercentProgress);
         }
     });
-
-    const stopAudio = () => {
-        if (audioRef.current) {
-            audioRef.current.pause();
-            setIsPlaying(false);
-        }
-    };
 
     const toggleAudio = () => {
         setIsPlaying(!isPlaying);
@@ -123,13 +90,11 @@ const AudioPlayer = ({ track }: IProps) => {
     return (
         <div className="audio-player">
             <p className="track-name">
-                {track?.name} - {track ? track.artists[0].name : null}
+                {track?.title} - {track ? track.artist.name : null}
             </p>
-            {previewUrl ? (
-                <audio controls>
-                    <source src={previewUrl} type="audio/mpeg" />
-                </audio>
-            ) : null}
+            <audio controls ref={audioRef}>
+                <source src={previewUrl} type="audio/mpeg" />
+            </audio>
 
             {/* <audio src={previewUrl} ref={audioRef} />
             <div className="controls">
