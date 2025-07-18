@@ -9,6 +9,7 @@ import SeachBar from './components/SearchBar/SearchBar';
 import { refreshAccessToken } from './spotify/token';
 import { AlbumInfo } from './spotify/types/AlbumInfo';
 import AlbumModal from './components/AlbumModal/AlbumModal';
+import { albumList } from './data/albumList';
 
 export interface IAlbum {
     artist: string;
@@ -21,31 +22,36 @@ export interface IAlbum {
 
 const App = () => {
     const [searchString, setSearchString] = useState<string>('');
-    const [albums, setAlbums] = useState<IAlbum[]>([]);
+    const [albums, setAlbums] = useState<string[] | undefined>(undefined);
     const [selectedAlbum, setSelectedAlbum] = useState<AlbumInfo | null>(null);
-    
+
     useEffect(() => {
         refreshAccessToken();
-        getAlbums();
+        getAlbum();
     }, []);
 
-    const getAlbums = async () => {
-        getDocs(collection(db, 'albums')).then((result) => {
-            const albums = result.docs.map((doc) => ({
-                ...doc.data(),
-                id: doc.id,
-            })) as IAlbum[];
-            setAlbums(albums);
-        });
+    const getAlbum = async () => {
+        for (const albumId of albumList) {
+            try {
+                const res = await fetch(
+                    `http://localhost:3001/getAlbum?id=${albumId}`
+                );
+                const data = await res.json();
+                console.log(data);
+            } catch (err) {
+                console.error(`Erreur pour l'album ${albumId}:`, err);
+            }
+        }
+        setAlbums(albumList);
     };
 
     const openAlbumModal = (selectedAlbum: AlbumInfo) => {
         setSelectedAlbum(selectedAlbum);
-    }
+    };
 
     const closeAlbumModal = () => {
         setSelectedAlbum(null);
-    }
+    };
 
     const searchInputOnChange = (
         event: React.ChangeEvent<HTMLInputElement>
@@ -53,12 +59,12 @@ const App = () => {
         setSearchString(event.target.value.toLocaleLowerCase());
     };
 
-    const filteredAlbums = albums.filter((album) => {
-        return (
-            album.title.toLowerCase().includes(searchString) ||
-            album.artist.toLocaleLowerCase().includes(searchString)
-        );
-    });
+    // const filteredAlbums = albums.filter((album) => {
+    //     return (
+    //         album.title.toLowerCase().includes(searchString) ||
+    //         album.artist.toLocaleLowerCase().includes(searchString)
+    //     );
+    // });
 
     return (
         <div className="app">
@@ -74,21 +80,34 @@ const App = () => {
                     onChangeHandler={searchInputOnChange}
                 />
 
-                <CardList list={filteredAlbums} listType="album" selectAlbum={openAlbumModal} />
+                {/* <CardList
+                    list={filteredAlbums}
+                    listType="album"
+                    selectAlbum={openAlbumModal}
+                /> */}
             </div>
 
-            <ToggleAlbumModal album={selectedAlbum} closeModal={closeAlbumModal}/>
+            <ToggleAlbumModal
+                album={selectedAlbum}
+                closeModal={closeAlbumModal}
+            />
         </div>
     );
 };
 
-const ToggleAlbumModal = (props: {album: AlbumInfo | null, closeModal: Function}) => {
+const ToggleAlbumModal = (props: {
+    album: AlbumInfo | null;
+    closeModal: Function;
+}) => {
     if (props.album) {
         return (
-            <AlbumModal album={props.album} closeAlbumModal={props.closeModal}/>
+            <AlbumModal
+                album={props.album}
+                closeAlbumModal={props.closeModal}
+            />
         );
     }
     return null;
-}
+};
 
 export default App;

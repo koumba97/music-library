@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay,faPause, faVolumeUp, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+    faPlay,
+    faPause,
+    faVolumeUp,
+    faVolumeXmark,
+} from '@fortawesome/free-solid-svg-icons';
 import './AudioPlayer.scss';
 import { TrackItem } from '../../spotify/types/TrackItem';
 
@@ -8,36 +13,59 @@ interface IProps {
     track: TrackItem | null;
 }
 
-const AudioPlayer = ({track}: IProps) => {
+const AudioPlayer = ({ track }: IProps) => {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
     const [isMute, setIsMute] = useState(false);
     const [musicProgress, setMusicProgress] = useState(0);
 
     useEffect(() => {
         return () => {
             stopAudio();
-        }
-    }, []);
+        };
+    }, [track]);
 
     useEffect(() => {
-        if(track){
+        if (track) {
             stopAudio();
-            audioRef.current?.play();
-            audioRef.current!.volume = 0.1;
+            // audioRef.current?.play();
+            // audioRef.current!.volume = 0.1;
             setIsPlaying(true);
+            getAudioPreviewUrl(track.name);
         }
-    }, [track?.preview_url]);
+    }, [track?.name]);
+
+    const getAudioPreviewUrl = async (trackName: string) => {
+        const res = await fetch('http://localhost:3001/test', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                song: trackName,
+                artist: track?.artists[0].name,
+            }),
+        });
+        if (res.ok) {
+            const data = await res.json();
+            setPreviewUrl(data[0].previewUrls[0]);
+            console.log(data);
+            console.log('aaaa', previewUrl, trackName);
+        } else {
+            console.log('fail');
+        }
+    };
 
     audioRef.current?.addEventListener('timeupdate', () => {
-        if(audioRef.current) {
-            const audioPercentProgress = (100 / audioRef.current.duration) * audioRef.current.currentTime;
+        if (audioRef.current) {
+            const audioPercentProgress =
+                (100 / audioRef.current.duration) *
+                audioRef.current.currentTime;
             setMusicProgress(audioPercentProgress);
         }
     });
 
     const stopAudio = () => {
-        if(audioRef.current){
+        if (audioRef.current) {
             audioRef.current.pause();
             setIsPlaying(false);
         }
@@ -45,32 +73,37 @@ const AudioPlayer = ({track}: IProps) => {
 
     const toggleAudio = () => {
         setIsPlaying(!isPlaying);
-        if(audioRef.current){
+        if (audioRef.current) {
             isPlaying ? audioRef.current.pause() : audioRef.current.play();
         }
     };
 
     function toggleSound() {
         setIsMute(!isMute);
-        if(audioRef.current){
-            isMute ? (audioRef.current.muted = false) : (audioRef.current.muted = true);
+        if (audioRef.current) {
+            isMute
+                ? (audioRef.current.muted = false)
+                : (audioRef.current.muted = true);
         }
-      
     }
 
     const changeMusicProgress = (event: any) => {
         setMusicProgress(event.target.value);
-        if(audioRef.current){
-           const percentagePosition = (audioRef.current.duration / 100) * event.target.value;
-            audioRef.current!.currentTime = percentagePosition; 
+        if (audioRef.current) {
+            const percentagePosition =
+                (audioRef.current.duration / 100) * event.target.value;
+            audioRef.current!.currentTime = percentagePosition;
         }
-        
     };
 
     const PlayerButton = () => {
         return (
             <button className="player-button" onClick={toggleAudio}>
-                {isPlaying ? <FontAwesomeIcon icon={faPause} size="lg"/> : <FontAwesomeIcon icon={faPlay} size="lg"/>}
+                {isPlaying ? (
+                    <FontAwesomeIcon icon={faPause} size="lg" />
+                ) : (
+                    <FontAwesomeIcon icon={faPlay} size="lg" />
+                )}
             </button>
         );
     };
@@ -78,16 +111,27 @@ const AudioPlayer = ({track}: IProps) => {
     const SoundButton = () => {
         return (
             <button className="sound-button" onClick={toggleSound}>
-                {isMute ? <FontAwesomeIcon icon={faVolumeXmark} size="lg"/> : <FontAwesomeIcon icon={faVolumeUp} size="lg"/>}
+                {isMute ? (
+                    <FontAwesomeIcon icon={faVolumeXmark} size="lg" />
+                ) : (
+                    <FontAwesomeIcon icon={faVolumeUp} size="lg" />
+                )}
             </button>
         );
     };
 
     return (
         <div className="audio-player">
+            <p className="track-name">
+                {track?.name} - {track ? track.artists[0].name : null}
+            </p>
+            {previewUrl ? (
+                <audio controls>
+                    <source src={previewUrl} type="audio/mpeg" />
+                </audio>
+            ) : null}
 
-            <audio src={track?.preview_url} ref={audioRef} />
-            <p className='track-name'>{track?.name} - {track ? track.artists[0].name : null}</p>
+            {/* <audio src={previewUrl} ref={audioRef} />
             <div className="controls">
                 <PlayerButton />
                 <input
@@ -99,7 +143,7 @@ const AudioPlayer = ({track}: IProps) => {
                     style={{ backgroundSize: musicProgress + '%' }}
                 />
                 <SoundButton />
-            </div>
+            </div> */}
         </div>
     );
 };

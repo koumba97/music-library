@@ -1,15 +1,18 @@
 const dotenv = require('dotenv');
 dotenv.config();
+const cors = require('cors');
 const axios = require('axios');
 const express = require('express');
 const app = express();
+app.use(cors());
 app.use(express.json());
 
-app.get('/test', async (req, res) => {
+app.get('/getAlbum', async (req, res) => {
     try {
+        const albumId = req.query.id;
         const options = {
             method: 'GET',
-            url: 'https://deezerdevs-deezer.p.rapidapi.com/track/3135556',
+            url: `https://deezerdevs-deezer.p.rapidapi.com/album/${albumId}`,
             headers: {
                 'x-rapidapi-key': process.env.RAPID_API_KEY,
                 'x-rapidapi-host': process.env.RAPID_API_HOST,
@@ -17,7 +20,6 @@ app.get('/test', async (req, res) => {
         };
 
         const response = await axios.request(options);
-        console.log(response.data);
         res.send(response.data);
     } catch (error) {
         console.error(error);
