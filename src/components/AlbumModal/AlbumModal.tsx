@@ -9,7 +9,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import TrackList from '../TrackList/TrackList';
 import { Track } from '../../deezer/types/Track';
 import AudioPlayer from '../AudioPlayer/AudioPlayer';
-import spotifyLogo from '../../assets/images/listen-on-spotify-2.png';
+import deezerLogo from '../../assets/images/logo-deezer-white.png';
 import { Album } from '../../deezer/types/Album';
 
 interface IProps {
@@ -39,42 +39,46 @@ const AlbumModal = ({ album, closeAlbumModal }: IProps) => {
                     className="modal-container"
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <div className="content">
-                        <div className="left">
-                            <div
-                                onClick={closeAlbumModalHandler}
-                                className="close-icon"
-                            >
-                                <FontAwesomeIcon icon={faXmark} size="xl" />
-                            </div>
-                            <img
-                                className="album-cover"
-                                alt={`album ${album.title}`}
-                                src={album.cover_medium}
-                            ></img>
-                            <h1 className="album-title">{album.title}</h1>
-                            <h2 className="album-artist">
-                                {album.artist?.name}
-                            </h2>
-
-                            <AlbumInfoContainer album={album} />
+                    <div className="control-container">
+                        <div
+                            onClick={closeAlbumModalHandler}
+                            className="close-icon"
+                        >
+                            <FontAwesomeIcon icon={faXmark} />
                         </div>
+                    </div>
 
-                        <div className="right">
-                            <div className="control-container">
-                                <div
-                                    onClick={closeAlbumModalHandler}
-                                    className="close-icon"
-                                >
-                                    <FontAwesomeIcon icon={faXmark} size="xl" />
-                                </div>
-                            </div>
-                            <TrackList
-                                tracks={album.tracks.data}
-                                playTrack={playTrack}
-                                playingTrack={playingTrack}
-                            />
+                    <div className="left">
+                        <img
+                            className="album-cover"
+                            alt={`album ${album.title}`}
+                            src={album.cover_big}
+                        ></img>
+                        <h1 className="album-title">{album.title}</h1>
+                        <h2 className="album-artist">{album.artist?.name}</h2>
+
+                        <div className="info-container">
+                            <p className="label">{album.label}</p>
                         </div>
+                    </div>
+
+                    <div className="right">
+                        <TrackList
+                            tracks={album.tracks.data}
+                            playTrack={playTrack}
+                            playingTrack={playingTrack}
+                        />
+                        <a href={album.link} target="_blank">
+                            <span>
+                                Listen the full album on
+                                <img
+                                    src={deezerLogo}
+                                    className="spotify-logo"
+                                    alt="Logo"
+                                    height={30}
+                                />
+                            </span>
+                        </a>
                     </div>
 
                     <AudioPlayer track={playingTrack} key={playTrack?.name} />
@@ -84,22 +88,4 @@ const AlbumModal = ({ album, closeAlbumModal }: IProps) => {
     );
 };
 
-const AlbumInfoContainer = (props: { album: Album }) => {
-    return (
-        <div className="info-container">
-            <a href={props.album.link} target="_blank">
-                {/* <img
-                    src={spotifyLogo}
-                    className="spotify-logo"
-                    alt="Logo"
-                    height={30}
-                /> */}
-                deezer logo here
-            </a>
-            <p className="label">
-                {props.album.release_date} - {props.album.label}
-            </p>
-        </div>
-    );
-};
 export default AlbumModal;
