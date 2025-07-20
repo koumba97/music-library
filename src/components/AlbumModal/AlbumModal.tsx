@@ -52,13 +52,17 @@ const AlbumModal = ({ album, closeAlbumModal }: IProps) => {
                         <img
                             className="album-cover"
                             alt={`album ${album.title}`}
-                            src={album.cover_big}
+                            src={album.cover_xl}
                         ></img>
-                        <h1 className="album-title">{album.title}</h1>
-                        <h2 className="album-artist">{album.artist?.name}</h2>
+                        <div>
+                            <h1 className="album-title">{album.title}</h1>
+                            <h2 className="album-artist">
+                                {album.artist?.name}
+                            </h2>
 
-                        <div className="info-container">
-                            <p className="label">{album.label}</p>
+                            <div className="info-container">
+                                <p className="label">{album.label}</p>
+                            </div>
                         </div>
                     </div>
 
@@ -69,11 +73,16 @@ const AlbumModal = ({ album, closeAlbumModal }: IProps) => {
                             playingTrack={playingTrack}
                         />
                         <a href={album.link} target="_blank">
+                            <img
+                                className="album-cover"
+                                alt={`album ${album.title}`}
+                                src={album.cover_medium}
+                            ></img>
                             <span>
                                 Listen the full album on
                                 <img
                                     src={deezerLogo}
-                                    className="spotify-logo"
+                                    className="deezer-logo"
                                     alt="Logo"
                                     height={30}
                                 />
