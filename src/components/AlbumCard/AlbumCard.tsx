@@ -23,15 +23,15 @@ const AlbumCard = ({ album, selectAlbum }: IProps) => {
             <div className="album-info">
                 <TitleRendering title={title} />
 
-                <p className="album-artist">{artist.name}</p>
-                <p className="album-year">{release_date.slice(0, 4)}</p>
+                <p className="album-artist">{artist?.name}</p>
+                <p className="album-year">{release_date?.slice(0, 4)}</p>
             </div>
         </div>
     );
 };
 
 const TitleRendering = (props: { title: string }) => {
-    if (props.title.length > 20) {
+    if (props.title?.length > 20) {
         return (
             <div className="tooltip">
                 <h1 className="album-title">{props.title}</h1>

@@ -72,12 +72,17 @@ $audio-player-height: 70px;
                     margin-bottom: 16px;
                     display: block;
                 }
-
                 .album-title {
                     text-align: left;
                     margin: 0;
                     font-size: 28px;
                     max-width: 300px;
+                }
+
+                .artist-img {
+                    border-radius: 30px;
+                    height: 50px;
+                    margin-top: 10px;
                 }
                 .album-artist {
                     text-align: left;
@@ -87,18 +92,11 @@ $audio-player-height: 70px;
                     font-size: 20px;
                 }
 
-                .info-container {
-                    position: relative;
+                .label {
                     margin-top: auto;
-                    flex: 1;
-                    display: flex;
-                    align-items: baseline;
-                    .label {
-                        color: $light-grey;
-                        font-size: 12px;
-                        margin-top: auto;
-                        display: block;
-                    }
+                    color: $light-grey;
+                    font-size: 12px;
+                    display: block;
                 }
             }
 
@@ -186,6 +184,11 @@ $audio-player-height: 70px;
                         height: 40vw;
                         position: relative;
                         bottom: 30px;
+                    }
+                    .album-info {
+                        .artist-img {
+                            display: none;
+                        }
                     }
                 }
                 .right {

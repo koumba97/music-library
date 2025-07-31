@@ -26,4 +26,25 @@ app.get('/getAlbum', async (req, res) => {
         res.status(500).send('Erreur lors de la requête à Deezer');
     }
 });
+
+app.get('/searchAlbum', async (req, res) => {
+    try {
+        const searchQuery = req.query.query;
+        const options = {
+            method: 'GET',
+            url: 'https://deezerdevs-deezer.p.rapidapi.com/search',
+            params: { q: searchQuery },
+            headers: {
+                'x-rapidapi-key': process.env.RAPID_API_KEY,
+                'x-rapidapi-host': process.env.RAPID_API_HOST,
+            },
+        };
+
+        const response = await axios.request(options);
+        res.send(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erreur lors de la requête à Deezer');
+    }
+});
 app.listen(3001, () => console.log('Server running on port 3001'));

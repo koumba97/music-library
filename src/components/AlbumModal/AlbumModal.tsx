@@ -54,14 +54,22 @@ const AlbumModal = ({ album, closeAlbumModal }: IProps) => {
                             alt={`album ${album.title}`}
                             src={album.cover_xl}
                         ></img>
-                        <div>
-                            <h1 className="album-title">{album.title}</h1>
-                            <h2 className="album-artist">
-                                {album.artist?.name}
-                            </h2>
+                        <div className="album-info">
+                            <div>
+                                <h1 className="album-title">{album.title}</h1>
 
-                            <div className="info-container">
-                                <p className="label">{album.label}</p>
+                                <h2 className="album-artist">
+                                    {album.artist?.name}
+                                </h2>
+                                <img
+                                    className="artist-img"
+                                    alt={`album ${album.title}`}
+                                    src={album.artist.picture_small}
+                                ></img>
+
+                                <div className="info-container">
+                                    <p className="label">{album.label}</p>
+                                </div>
                             </div>
                         </div>
                     </div>

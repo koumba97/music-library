@@ -22,7 +22,6 @@ export interface IAlbum {
 }
 
 const App = () => {
-    const [searchString, setSearchString] = useState<string>('');
     const [albums, setAlbums] = useState<Album[] | undefined>(undefined);
     const [selectedAlbum, setSelectedAlbum] = useState<Album | undefined>(
         undefined
@@ -41,7 +40,6 @@ const App = () => {
                     `http://localhost:3001/getAlbum?id=${albumId}`
                 );
                 const data = await res.json();
-                console.log(data);
                 albumResp.push(data);
             } catch (err) {
                 console.error(`Erreur pour l'album ${albumId}:`, err);
@@ -58,18 +56,14 @@ const App = () => {
         setSelectedAlbum(undefined);
     };
 
-    const searchInputOnChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setSearchString(event.target.value.toLocaleLowerCase());
+    const handleSearchResult = (result: Album[]) => {
+        if (result.length > 0) {
+            setAlbums(result);
+            console.log('ok');
+        } else {
+            getAlbum();
+        }
     };
-
-    // const filteredAlbums = albums.filter((album) => {
-    //     return (
-    //         album.title.toLowerCase().includes(searchString) ||
-    //         album.artist.toLocaleLowerCase().includes(searchString)
-    //     );
-    // });
 
     return (
         <div className="app">
@@ -80,10 +74,10 @@ const App = () => {
                         Explore your passion for music with music library
                     </p>
                 </div>
-                <SeachBar
+                {/* <SeachBar
                     placeholder={'Search album'}
-                    onChangeHandler={searchInputOnChange}
-                />
+                    searchResult={handleSearchResult}
+                /> */}
 
                 {albums ? (
                     <CardList
