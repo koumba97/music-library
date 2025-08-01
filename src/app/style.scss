@@ -1,0 +1,111 @@
+@import "../assets/style/variables.scss";
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.19);
+    opacity: 0;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.app {
+    padding: 40px 100px 50px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fafafa;
+    overflow: hidden;
+    min-height: 100vh;
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 300px;
+        width: 100%;
+        background: -webkit-linear-gradient(to right, #ffffff, #dadada);
+        background: linear-gradient(to right, #ffffff, #dadada);
+        //background-image: url('./assets/images/abstract-background.jpg');
+        background-position: top;
+        background-size: cover;
+        border-radius: 0 0 50% 50%/0 0 100% 100%;
+        transform: scaleX(1.5);
+    }
+
+    .app-content {
+        z-index: 1;
+        .title {
+            margin-bottom: 30px;
+            text-align: center;
+            .logo {
+                width: 320px;
+            }
+            .slogan {
+                margin: 0;
+                font-weight: 600;
+                font-size: 20px;
+            }
+        }
+    }
+
+    .search-bar {
+        margin-bottom: 100px;
+    }
+}
+
+@media (min-width: 1px) and (max-width: $md-breakpoint) {
+    .app {
+        padding: 20px;
+        overflow: hidden;
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 250px;
+            width: 100%;
+            // background: -webkit-linear-gradient(to right, #ffffff, #dadada);
+            // background: linear-gradient(to right, #ffffff, #dadada);
+            background-size: cover;
+            border-radius: 0 0 50% 50%/0 0 100% 100%;
+            transform: scaleX(1.5);
+        }
+
+        .app-content {
+            .title {
+                margin-bottom: 30px;
+                .logo {
+                    width: 250px;
+                }
+                .slogan {
+                    font-size: 15px;
+                }
+            }
+        }
+
+        .search-bar {
+            margin-bottom: 50px;
+        }
+    }
+}

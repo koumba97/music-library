@@ -1,0 +1,21 @@
+@import "../../../assets//style/variables.scss";
+
+.track-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .list-title {
+        margin: 10px 0;
+        font-weight: 500;
+    }
+
+    .list-container {
+        overflow: scroll;
+        flex: 1;
+    }
+
+    .track-player {
+        width: 100%;
+    }
+}

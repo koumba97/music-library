@@ -1,0 +1,94 @@
+@import "../../../assets//style/variables.scss";
+
+$card-padding: 16px;
+
+.album-card {
+    width: 200px;
+    height: 280px;
+    border-radius: 12px;
+    padding: $card-padding;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.197);
+    position: relative;
+    border: solid 2px transparent;
+    cursor: pointer;
+    bottom: 0;
+    transition: bottom 0.3s;
+
+    img {
+        width: 195px;
+        height: 195px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 8px;
+    }
+
+    .album-title {
+        font-size: 20px;
+        margin: 10px 0 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+        width: max-content;
+    }
+
+    .album-artist {
+        font-size: 16px;
+        margin: 0;
+        color: $primary;
+    }
+
+    .album-year {
+        font-size: 12px;
+        font-weight: bold;
+        text-align: right;
+        color: gray;
+        width: 100%;
+    }
+
+    &:hover {
+        bottom: 10px;
+        border-color: $light-grey;
+    }
+}
+
+@media (min-width: 1px) and (max-width: $md-breakpoint) {
+    .album-card {
+        width: 100%;
+        box-sizing: border-box;
+        max-width: unset;
+        height: auto;
+        display: flex;
+        gap: 20px;
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .album-title {
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 8px;
+            width: auto;
+            white-space: unset;
+        }
+
+        .album-artist {
+            font-size: 16px;
+        }
+
+        .album-info {
+            width: 100%;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .album-year {
+            margin: 0;
+            position: absolute;
+            bottom: 0;
+        }
+    }
+}
