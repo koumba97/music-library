@@ -1,4 +1,4 @@
-@import "@/assets/style/variables.scss";
+@use "../../../assets/style/variables" as *;
 
 .search-bar {
     background-color: white;

@@ -1,4 +1,4 @@
-@import "@/assets/style/variables.scss";
+@use "../../../assets/style/variables" as *;
 
 .track-list {
     flex: 1;
