@@ -1,6 +1,6 @@
-const axios = require('axios');
+const axios = require("axios");
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     const albumId = req.query.id;
 
     try {
@@ -8,14 +8,15 @@ module.exports = async function handler(req, res) {
             `https://deezerdevs-deezer.p.rapidapi.com/album/${albumId}`,
             {
                 headers: {
-                    'x-rapidapi-key': process.env.RAPID_API_KEY,
-                    'x-rapidapi-host': process.env.RAPID_API_HOST,
+                    "x-rapidapi-key": process.env.RAPID_API_KEY,
+                    "x-rapidapi-host": process.env.RAPID_API_HOST,
                 },
             }
         );
         res.status(200).json(response.data);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to fetch album' });
+        //console.error(error);
+        res.status(500).json({ error: error.message });
+        //res.status(500).json({ error: "Failed to fetch album" });
     }
-};
+}
