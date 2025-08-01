@@ -3,8 +3,8 @@
 $card-padding: 16px;
 
 .album-card {
-    width: 200px;
-    height: 280px;
+    width: max-content;
+    height: max-content;
     border-radius: 12px;
     padding: $card-padding;
     background-color: white;
